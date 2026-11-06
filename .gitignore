@@ -1,0 +1,12 @@
+old
+old/
+raw
+addresscleaner/
+.DS_Store
+
+# Pipeline outputs (large / regenerated)
+data/interim/
+data/output/
+data/geocode/
+*.part
+__pycache__/

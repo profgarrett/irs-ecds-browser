@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IRS e-File Provider Map</title>
+<meta name="description" content="Map of IRS authorized e-file providers from the ECDS FOIA extract.">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="map" aria-label="Map of e-file providers"></div>
+
+<aside id="panel" class="panel">
+  <header class="panel-head">
+    <div>
+      <h1>IRS e-File Providers</h1>
+      <p class="sub" id="release">Loading…</p>
+    </div>
+    <button id="toggle" class="icon-btn" aria-expanded="true" aria-controls="panel-body" title="Show or hide filters">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </header>
+
+  <div id="panel-body" class="panel-body">
+    <div class="stat">
+      <span id="count" class="stat-num">–</span>
+      <span class="stat-label">firms on map</span>
+    </div>
+
+    <label class="field">
+      <span class="field-label">Search firm, brand, or city</span>
+      <input id="search" type="search" placeholder="e.g. Jackson Hewitt, Morgantown" autocomplete="off">
+    </label>
+
+    <fieldset class="field">
+      <legend class="field-label">Filing status (this year)</legend>
+      <div class="seg" role="radiogroup">
+        <label><input type="radio" name="filer" value="1" checked><span>Filers</span></label>
+        <label><input type="radio" name="filer" value="0"><span>Non-filers</span></label>
+        <label><input type="radio" name="filer" value="all"><span>All</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend class="field-label">Firm size (returns transmitted YTD)</legend>
+      <div class="sizes" id="sizes"></div>
+    </fieldset>
+
+    <label class="field">
+      <span class="field-label">State</span>
+      <select id="state"><option value="">All states</option></select>
+    </label>
+
+    <label class="check">
+      <input id="approx" type="checkbox" checked>
+      <span>Include approximate locations <small>(placed at ZIP-code center)</small></span>
+    </label>
+
+    <div id="results" class="results" hidden>
+      <div class="field-label">Top matches</div>
+      <ol id="result-list"></ol>
+    </div>
+
+    <footer class="foot">
+      Source: IRS Electronic Filing (ECDS) FOIA extract. Locations are geocoded from business
+      addresses; hollow dots are firms that filed no returns this year, faded dots are approximate.
+    </footer>
+  </div>
+</aside>
+
+<div id="loading" class="loading" role="status"><div class="spinner"></div><span id="loading-text">Loading firms…</span></div>
+
+<script src="vendor/maplibre-gl.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
